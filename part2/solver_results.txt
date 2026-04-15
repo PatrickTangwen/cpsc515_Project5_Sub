@@ -1,0 +1,117 @@
+Part 2 unsat-core checks
+
+Scenario 1 - Split-custody teen with more nights at dad's apartment
+file = scenario1_dependent.smt2
+expected_dependent = true
+base_check = sat
+is_dependent = true
+classification_matches_expectation = true
+opposite_query = (assert (not is_dependent))
+opposite_check = unsat
+core_role = supporting rules
+unsat_core =
+- rule_152_a_dependent_definition
+- rule_152_b2_joint_return
+- rule_152_b3_citizenship_or_residency
+- rule_152_b3_general_residency
+- rule_152_c1A_qc_relationship
+- rule_152_c1B_qc_same_abode
+- rule_152_c1C_qc_age
+- rule_152_c1D_qc_self_support
+- rule_152_c1E_qc_joint_return
+- rule_152_c1_qc_candidate_definition
+- rule_152_c4_qc_tiebreaker
+- rule_152_c_qc_definition
+
+Scenario 2 - Permanently disabled adult daughter living at home
+file = scenario2_dependent.smt2
+expected_dependent = true
+base_check = sat
+is_dependent = true
+classification_matches_expectation = true
+opposite_query = (assert (not is_dependent))
+opposite_check = unsat
+core_role = supporting rules
+unsat_core =
+- rule_152_a_dependent_definition
+- rule_152_b2_joint_return
+- rule_152_b3_citizenship_or_residency
+- rule_152_b3_general_residency
+- rule_152_c1A_qc_relationship
+- rule_152_c1B_qc_same_abode
+- rule_152_c1C_qc_age
+- rule_152_c1D_qc_self_support
+- rule_152_c1E_qc_joint_return
+- rule_152_c1_qc_candidate_definition
+- rule_152_c4_qc_tiebreaker
+- rule_152_c_qc_definition
+
+Scenario 3 - Low-income grandmother supported by her grandson
+file = scenario3_dependent.smt2
+expected_dependent = true
+base_check = sat
+is_dependent = true
+classification_matches_expectation = true
+opposite_query = (assert (not is_dependent))
+opposite_check = unsat
+core_role = supporting rules
+unsat_core =
+- rule_152_a_dependent_definition
+- rule_152_b2_joint_return
+- rule_152_b3_citizenship_or_residency
+- rule_152_b3_general_residency
+- rule_152_d1B_qr_gross_income
+- rule_152_d1C_qr_support
+- rule_152_d1C_qr_support_direct
+- rule_152_d1D_qr_not_qc_of_anyone
+- rule_152_d2_qr_relationship
+- rule_152_d4_effective_gross_income
+- rule_152_d5A_effective_support
+- rule_152_d_qr_definition
+
+Scenario 4 - Married college daughter who filed jointly for a real tax benefit
+file = scenario4_not_dependent.smt2
+expected_dependent = false
+base_check = sat
+is_dependent = false
+classification_matches_expectation = true
+opposite_query = (assert is_dependent)
+opposite_check = unsat
+core_role = blocking rules
+unsat_core =
+- rule_152_a_dependent_definition
+- rule_152_b2_joint_return
+
+Scenario 5 - Brother with too much income to be a qualifying relative
+file = scenario5_not_dependent.smt2
+expected_dependent = false
+base_check = sat
+is_dependent = false
+classification_matches_expectation = true
+opposite_query = (assert is_dependent)
+opposite_check = unsat
+core_role = blocking rules
+unsat_core =
+- rule_152_a_dependent_definition
+- rule_152_c1C_qc_age
+- rule_152_c1_qc_candidate_definition
+- rule_152_c_qc_definition
+- rule_152_d1B_qr_gross_income
+- rule_152_d4_effective_gross_income
+- rule_152_d_qr_definition
+
+Scenario 6 - Nephew lives mostly with aunt, but his mother could still claim him
+file = scenario6_not_dependent.smt2
+expected_dependent = false
+base_check = sat
+is_dependent = false
+classification_matches_expectation = true
+opposite_query = (assert is_dependent)
+opposite_check = unsat
+core_role = blocking rules
+unsat_core =
+- rule_152_a_dependent_definition
+- rule_152_c4_qc_tiebreaker
+- rule_152_c_qc_definition
+- rule_152_d1D_qr_not_qc_of_anyone
+- rule_152_d_qr_definition
